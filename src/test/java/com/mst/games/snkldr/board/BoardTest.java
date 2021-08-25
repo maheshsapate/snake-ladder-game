@@ -9,7 +9,13 @@ public class BoardTest {
 
     @Test
     public void boardSizeTest() {
-        Assertions.assertEquals(100, board.getSize());
+        Assertions.assertEquals(100, Board.BOARD_SIZE);
+    }
+
+    @Test
+    public void nextPositionTest() {
+        int nextPosition = board.getNextPosition(20);
+        Assertions.assertEquals(20, nextPosition);
     }
 
 }

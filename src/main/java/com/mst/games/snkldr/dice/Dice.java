@@ -10,7 +10,9 @@ public class Dice {
     private static final Random RANDOM = new Random();
 
     public int roll() {
-        return RANDOM.ints(MIN_NUMBER, MAX_NUMBER + 1).findFirst().getAsInt();
+        return RANDOM.ints(MIN_NUMBER, MAX_NUMBER + 1)
+            .findFirst()
+            .getAsInt();
     }
 
 }

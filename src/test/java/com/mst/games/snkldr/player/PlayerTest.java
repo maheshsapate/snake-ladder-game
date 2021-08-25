@@ -10,6 +10,12 @@ public class PlayerTest {
     @Test
     public void startPositionTest() {
         int pos = player.getPosition();
-        Assertions.assertEquals(0, pos);
+        Assertions.assertEquals(Player.INITIAL_POSITION, pos);
+    }
+
+    @Test
+    public void setPositionTest() {
+        player.setPosition(45);
+        Assertions.assertEquals(45, player.getPosition());
     }
 }
