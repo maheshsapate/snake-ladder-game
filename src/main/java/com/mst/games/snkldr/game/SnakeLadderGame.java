@@ -10,16 +10,14 @@ public class SnakeLadderGame {
     private final Dice dice;
     private final Player player;
 
-    public SnakeLadderGame(Board board, Dice dice, Player player) {
+    public SnakeLadderGame(Board board, Dice dice) {
         this.board = board;
         this.dice = dice;
-        this.player = player;
+        this.player = new Player();
     }
 
-    private void start() {
-        while (isNotGameOver()) {
-            rollDice();
-        }
+    public int getPlayerPosition() {
+        return player.getPosition();
     }
 
     public void rollDice() {
@@ -37,11 +35,7 @@ public class SnakeLadderGame {
     }
 
     private boolean isNotValidPosition(int nextPosition) {
-        return nextPosition > Board.BOARD_SIZE;
-    }
-
-    private boolean isNotGameOver() {
-        return player.getPosition() == Board.BOARD_SIZE;
+        return nextPosition > Board.END_POSITION;
     }
 
 }

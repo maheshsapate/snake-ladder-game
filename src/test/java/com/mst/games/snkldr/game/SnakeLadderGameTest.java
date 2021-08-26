@@ -10,7 +10,6 @@ import org.mockito.MockitoAnnotations;
 
 import com.mst.games.snkldr.board.Board;
 import com.mst.games.snkldr.dice.Dice;
-import com.mst.games.snkldr.player.Player;
 
 class SnakeLadderGameTest {
 
@@ -19,23 +18,36 @@ class SnakeLadderGameTest {
     @Mock
     private Dice dice;
 
-    private Player player = new Player();
     private SnakeLadderGame game;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        game = new SnakeLadderGame(board, dice, player);
+        game = new SnakeLadderGame(board, dice);
     }
 
     @Test
     void onDiceRollChangePlayerPositionTest() {
-        int playerPosition = player.getPosition();
+        int playerPosition = game.getPlayerPosition();
         int diceMove = 5;
         Mockito.when(dice.roll()).thenReturn(diceMove);
         Mockito.when(board.getNextPosition(ArgumentMatchers.anyInt())).thenReturn(diceMove + playerPosition);
         game.rollDice();
-        Assertions.assertTrue(player.getPosition() > Player.INITIAL_POSITION);
-        Assertions.assertEquals(diceMove + playerPosition, player.getPosition());
+        Assertions.assertTrue(game.getPlayerPosition() > Board.START_POSITION);
+        Assertions.assertEquals(diceMove + playerPosition, game.getPlayerPosition());
+    }
+
+    @Test
+    void onDiceRollPlayerPositionUnchangedTest() {
+        int diceMove = 5;
+        Mockito.when(dice.roll()).thenReturn(diceMove, diceMove);
+        Mockito.when(board.getNextPosition(ArgumentMatchers.anyInt())).thenReturn(Board.END_POSITION);
+        game.rollDice();
+        int playerPosition = game.getPlayerPosition();
+        game.rollDice();
+
+        Assertions.assertEquals(playerPosition, game.getPlayerPosition());
+        Mockito.verify(dice, Mockito.atMost(2)).roll();
+        Mockito.verify(board, Mockito.atMostOnce()).getNextPosition(ArgumentMatchers.anyInt());
     }
 }
