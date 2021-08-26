@@ -1,18 +1,26 @@
 package com.mst.games.snkldr.dice;
 
-import java.util.Random;
-
 public class Dice {
 
     public static final int MIN_NUMBER = 1;
     public static final int MAX_NUMBER = 6;
 
-    private static final Random RANDOM = new Random();
+    private RollingStrategy rollingStrategy;
+
+    public Dice(RollingStrategy rollingStrategy) {
+        this.rollingStrategy = rollingStrategy;
+    }
 
     public int roll() {
-        return RANDOM.ints(MIN_NUMBER, MAX_NUMBER + 1)
-            .findFirst()
-            .getAsInt();
+        int move = rollingStrategy.roll();
+        if (isInLimit(move)) {
+            return move;
+        }
+        throw new RuntimeException("Invalid roll " + move + " from dice");
+    }
+
+    private boolean isInLimit(int move) {
+        return MIN_NUMBER <= move && move <= MAX_NUMBER;
     }
 
 }

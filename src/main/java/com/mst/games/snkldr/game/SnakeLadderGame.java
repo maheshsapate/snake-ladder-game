@@ -16,6 +16,10 @@ public class SnakeLadderGame {
         this.player = new Player();
     }
 
+    public boolean isGameOver() {
+        return getPlayerPosition() == Board.END_POSITION;
+    }
+
     public int getPlayerPosition() {
         return player.getPosition();
     }

@@ -5,12 +5,22 @@ import org.junit.jupiter.api.Test;
 
 class DiceTest {
 
-    private Dice dice = new Dice();
+    private Dice dice;
 
     @Test
-    void rollDiceTest() {
-        int result = dice.roll();
-        Assertions.assertTrue(result >= Dice.MIN_NUMBER);
-        Assertions.assertTrue(result <= Dice.MAX_NUMBER);
+    void rollRandomStrategyDiceTest() {
+        dice = new Dice(RollingStrategy.RANDOM_STRATEGY);
+        int move = dice.roll();
+        Assertions.assertTrue(move >= Dice.MIN_NUMBER);
+        Assertions.assertTrue(move <= Dice.MAX_NUMBER);
+    }
+
+    @Test
+    void rollEvenStrategyDiceTest() {
+        dice = new Dice(RollingStrategy.EVEN_STRATEGY);
+        int move = dice.roll();
+        Assertions.assertTrue(move >= Dice.MIN_NUMBER);
+        Assertions.assertTrue(move <= Dice.MAX_NUMBER);
+        Assertions.assertEquals(0, move % 2);
     }
 }
