@@ -1,5 +1,8 @@
 package com.mst.games.snkldr.game;
 
+import java.time.Duration;
+import java.util.Set;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,8 +11,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.google.common.collect.Sets;
 import com.mst.games.snkldr.board.Board;
+import com.mst.games.snkldr.board.item.BoardItem;
+import com.mst.games.snkldr.board.item.Ladder;
+import com.mst.games.snkldr.board.item.Snake;
 import com.mst.games.snkldr.dice.Dice;
+import com.mst.games.snkldr.dice.RollingStrategy;
 
 class SnakeLadderGameTest {
 
@@ -49,5 +57,18 @@ class SnakeLadderGameTest {
         Assertions.assertEquals(playerPosition, game.getPlayerPosition());
         Mockito.verify(dice, Mockito.atMost(2)).roll();
         Mockito.verify(board, Mockito.atMostOnce()).getNextPosition(ArgumentMatchers.anyInt());
+    }
+
+    @Test
+    void gameEndToEndTest() {
+        Set<BoardItem> boardItems = Sets.newHashSet(new Snake(14, 7), new Ladder(15, 30), new Snake(47, 29), new Ladder(57, 80));
+        SnakeLadderGame game = new SnakeLadderGame(new Board(boardItems), new Dice(RollingStrategy.RANDOM_STRATEGY));
+
+        Assertions.assertTimeout(Duration.ofSeconds(3), () -> {
+            while (!game.isGameOver()) {
+                game.rollDice();
+            }
+        });
+        Assertions.assertEquals(Board.END_POSITION, game.getPlayerPosition());
     }
 }

@@ -10,8 +10,8 @@ public class Player {
         return position;
     }
 
-    public void setPosition(int nextPosition) {
-        position = nextPosition;
+    public void setPosition(int position) {
+        this.position = position;
     }
 
 }

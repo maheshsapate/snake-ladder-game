@@ -24,5 +24,4 @@ public class Board {
         }
         return fromPosition;
     }
-
 }
