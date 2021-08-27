@@ -16,7 +16,7 @@ public class Dice {
         if (isInLimit(move)) {
             return move;
         }
-        throw new RuntimeException("Invalid roll " + move + " from dice");
+        throw new IllegalStateException("Invalid roll " + move + " from dice");
     }
 
     private boolean isInLimit(int move) {

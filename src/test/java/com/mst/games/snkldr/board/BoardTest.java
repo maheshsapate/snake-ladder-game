@@ -6,6 +6,10 @@ import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.mst.games.snkldr.board.item.BoardItem;
+import com.mst.games.snkldr.board.item.Ladder;
+import com.mst.games.snkldr.board.item.Snake;
+
 class BoardTest {
 
     private Board board;

@@ -5,6 +5,9 @@ import java.security.InvalidParameterException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.mst.games.snkldr.board.item.Ladder;
+import com.mst.games.snkldr.board.item.Snake;
+
 class BoardItemTest {
 
     @Test
